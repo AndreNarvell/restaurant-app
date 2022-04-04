@@ -1,7 +1,13 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
+import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import Home from "./components/home";
+import Booking from "./components/booking";
+import Contact from "./components/contact";
+import Admin from "./components/admin";
+import NotFound from "./components/NotFound";
+import logo from "./images/logo.png";
 
 function App() {
   const fetchRestaurant = async () => {
@@ -12,9 +18,27 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <button onClick={fetchRestaurant}>hejehejh</button>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <nav>
+          <NavLink to={"/"}>
+            {" "}
+            <img style={{ width: "100px" }} src={logo} alt="" />{" "}
+          </NavLink>{" "}
+          {/* <NavLink to={"/admin"}>Admin</NavLink>{" "}
+          <NavLink to={"/booking"}>Booking</NavLink>{" "}
+          <NavLink to={"/contact"}>Contact</NavLink> */}
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
