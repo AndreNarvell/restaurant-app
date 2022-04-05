@@ -1,11 +1,14 @@
 .container {
     display: flex;
     flex-direction: column;
+
     .addressMap {
         display: flex;
-        // justify-content: space-evenly;
-        // flex-direction: wrap;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
     }
+
     .footer-container {
         display: flex;
         flex-direction: column;
