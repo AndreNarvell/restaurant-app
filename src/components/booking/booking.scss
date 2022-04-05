@@ -1,0 +1,23 @@
+.bookingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .bookTable {
+        font-family: inherit;
+        border: none;
+        border-radius: 20px;
+        background-color: #c46744;
+        margin-right: 1rem;
+        cursor: pointer;
+        transition: all 500ms;
+        height: 5rem;
+        width: 15rem;
+        line-height: 1rem;
+      
+        & p {
+          font-size: 2rem;
+        }
+      }
+      
+}

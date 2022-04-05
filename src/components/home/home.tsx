@@ -1,5 +1,5 @@
 import "./home.scss";
-import pancakes from "../images/pancakes.png";
+import pancakes from "../../images/pancakes.png";
 import { Link } from "react-router-dom";
 
 const Home = () => {

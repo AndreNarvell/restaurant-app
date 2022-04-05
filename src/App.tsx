@@ -2,11 +2,11 @@ import React from "react";
 import "./App.scss";
 import axios from "axios";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
-import Home from "./components/home";
-import Booking from "./components/booking";
-import Contact from "./components/contact";
-import Admin from "./components/admin";
-import NotFound from "./components/NotFound";
+import Home from "./components/home/home";
+import Booking from "./components/booking/booking";
+import Contact from "./components/contact/contact";
+import Admin from "./components/admin/admin";
+import NotFound from "./components/notfound/NotFound";
 import logo from "./images/logo.png";
 
 function App() {
