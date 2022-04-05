@@ -4,28 +4,8 @@ import "./contact.scss";
 const Contact = () => {
   return <>
     <div className="container">
-      <div className="nav-container">
-        <nav>
-          <ul>
-            <li>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                Facebook
-              </a>
-            </li>
-            <li>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                Insta
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
 
+      <div className="addressMap">
       <div className="address">
         <ul>
           <li>
@@ -50,6 +30,30 @@ const Contact = () => {
           loading="lazy">
         </iframe>
       </div>
+      </div>
+
+      <div className="footer-container">
+        <footer>
+          <ul>
+            <li>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer">
+                Facebook
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer">
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer">
+                Insta
+              </a>
+            </li>
+          </ul>
+        </footer>
+      </div>
+
     </div>
   </>
 };
