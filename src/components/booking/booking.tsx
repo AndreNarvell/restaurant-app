@@ -1,6 +1,6 @@
 import "./booking.scss";
-import { Slider } from '@material-ui/core';
-import Calendar from 'react-calendar';
+import { Slider } from "@material-ui/core";
+import Calendar from "react-calendar";
 import { useState } from "react";
 
 const Booking = () => {
@@ -11,30 +11,28 @@ const Booking = () => {
   const updateAmount = (e: any, amount: any) => {
     setAmount(amount);
     console.log(amount);
-  }
+  };
 
   const handleDate = (date: Date) => {
     setDate(date);
     console.log(date);
-  }
+  };
 
   return (
     <div className="bookingContainer">
-      <div className="bookTable"><p>book a table</p></div>
-
+      <div>
+        <button className="bookTable">
+          <p>book a table</p>
+        </button>
+      </div>
+      {/* Slider */}
       <div style={{ width: 300, margin: 30 }}>
-        <Slider
-          min={1}
-          max={6}
-          onChange={updateAmount}
-          value={amount}
-        />
+        <Slider min={1} max={6} onChange={updateAmount} value={amount} />
         {amount}
       </div>
+      {/* Calendar */}
       <Calendar onChange={handleDate} value={date} />
-      <p>
-        {date.toString()}
-      </p>
+      <p>{date.toString()}</p>
     </div>
   );
 };

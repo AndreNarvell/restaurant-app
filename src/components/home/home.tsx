@@ -10,15 +10,15 @@ const Home = () => {
       </div>
       <div className="homeText">
         <h1>
-          They aren't pancakes, if they aren't <span>Golden</span>!
+          They aren't pancakes, if they aren't <span className="golden-span">Golden</span>!
         </h1>
         <Link to="/booking">
-          <button>
+          <button className="primary-button">
             <p>book a table</p>
           </button>
         </Link>
         <Link to="/contact">
-          <button>
+          <button className="primary-button">
             <p>contact</p>
           </button>
         </Link>
