@@ -3,8 +3,23 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow-x: hidden;
 
   .bookTable {
+    font-family: inherit;
+    border: none;
+    background-color: #c46744;
+    height: 5rem;
+    width: 100vw;
+
+    h1 {
+      font-weight: 400;
+      padding-top: 1rem;
+      font-size: 2rem;
+    }
+  }
+
+  .primary-button {
     font-family: inherit;
     border: none;
     border-radius: 20px;
@@ -15,59 +30,111 @@
     height: 5rem;
     width: 15rem;
     line-height: 1rem;
-
     &:hover {
       transform: scale(105%);
     }
-
-    p {
+    & p {
       font-size: 2rem;
     }
   }
 
-  // Visa André (Vi måste använda classer på allt)
+  .sliderDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(90%, 30rem);
 
-  .react-calendar {
-    width: 400px;
-    max-width: 100%;
-    background-color: #fff;
-    color: #222;
-    border-radius: 8px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    font-family: inherit;
-    line-height: 2.125em;
-    padding: 1rem;
-
-    // Mon - Sun
-    abbr[title] {
-      opacity: 50%;
-      text-decoration: none;
-      font-weight: 600;
+    h2 {
+      font-weight: 300;
+      font-size: 4rem;
     }
-    // Days (numbers)
-    button {
-      border: none;
-      background-color: #fff;
-      font-size: 1rem;
-      padding: 0.5rem;
-      cursor: pointer;
+    .golden-span {
+      color: #bd5f04;
+      filter: opacity(50%);
+    }
+    .MuiSlider-root {
+      color: #23aacc;
 
-      &:enabled:focus {
-        background-color: #23aacc;
-        color: #fff;
+      .MuiSlider-rail {
+        height: 4px;
+      }
+
+      .MuiSlider-thumb {
+        height: 22px;
+        width: 22px;
+        margin-top: -9px;
       }
     }
+  }
 
-    .react-calendar__navigation {
-      border-bottom: 1px solid black;
+  .calendarDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(90%, 30rem);
 
-      .react-calendar__navigation__label {
+    h2 {
+      font-weight: 300;
+      font-size: 4rem;
+    }
+    .golden-span {
+      color: #bd5f04;
+      filter: opacity(50%);
+    }
+    .react-calendar {
+      max-width: 100%;
+      background-color: #fff;
+      color: #222;
+      border-radius: 8px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      font-family: inherit;
+      line-height: 2.125em;
+      padding: 1rem;
+
+      // Mon - Sun
+      abbr[title] {
+        opacity: 50%;
+        text-decoration: none;
         font-weight: 600;
       }
-    }
+      // Days (numbers)
+      button {
+        border: none;
+        background-color: #fff;
+        font-size: 1rem;
+        padding: 0.5rem;
+        cursor: pointer;
 
-    .react-calendar__month-view__weekdays {
-      margin-bottom: 0.5rem;
+        &:enabled:focus {
+          background-color: #23aacc;
+          color: #fff;
+        }
+      }
+
+      .react-calendar__navigation {
+        border-bottom: 1px solid black;
+
+        .react-calendar__navigation__label {
+          font-weight: 600;
+        }
+      }
+
+      .react-calendar__month-view__weekdays {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+  .chooseTimeDiv {
+    width: min(90%, 30rem);
+
+    h2 {
+      font-weight: 300;
+      font-size: 4rem;
+    }
+    .golden-span {
+      color: #bd5f04;
+      filter: opacity(50%);
     }
   }
 }
