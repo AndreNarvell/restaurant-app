@@ -9,7 +9,6 @@ const Booking = () => {
   const [date, setDate] = useState(new Date());
   // const [date, setDate] = useState(moment().format('MM/DD/YYYY'));
 
-  //https://mui.com/components/slider/
   const updateAmount = (e: any, amount: any) => {
     setAmount(amount);
     console.log(amount);
@@ -63,6 +62,23 @@ const Booking = () => {
         <button className="primary-button">
           <p>21.00</p>
         </button>
+      </div>
+
+      <div className="formDiv">
+        <form>
+          <input type="text" placeholder="First name.." />
+          <input type="text" placeholder="Last name.." />
+          <input type="email" placeholder="Email.." />
+          <input type="text" placeholder="Phone number.." />
+        </form>
+
+        <div className="checkboxDiv">
+          <input type="checkbox" id="gdpr" />
+          <label htmlFor="gdpr">I have agreed to GDPR</label>
+        </div>
+
+        <button className="primary-button"><p>Make reservation</p></button>
+
       </div>
     </div>
   );
