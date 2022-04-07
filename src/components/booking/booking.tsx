@@ -30,7 +30,7 @@ const Booking = () => {
       {/* Slider */}
       <div className="sliderDiv">
         <h2>
-          How many is in your <span className="golden-span">party?</span>
+          How many is in your <span className="goldenSpan">party?</span>
         </h2>
         <div style={{ width: 300, margin: 30 }}>
           <Slider min={1} max={6} onChange={updateAmount} value={amount} />
@@ -41,7 +41,7 @@ const Booking = () => {
       {/* Calendar */}
       <div className="calendarDiv">
         <h2>
-          When would you like to <span className="golden-span">party?</span>
+          When would you like to <span className="goldenSpan">party?</span>
         </h2>
         <Calendar
           onChange={handleDate}
@@ -53,13 +53,13 @@ const Booking = () => {
 
       <div className="chooseTimeDiv">
         <h2>
-          Available <span className="golden-span">party times:</span>
+          Available <span className="goldenSpan">party times:</span>
         </h2>
-        <button className="primary-button">
+        <button className="primaryBtn">
           <p>18.00</p>
         </button>
 
-        <button className="primary-button">
+        <button className="primaryBtn">
           <p>21.00</p>
         </button>
       </div>
@@ -73,11 +73,14 @@ const Booking = () => {
         </form>
 
         <div className="checkboxDiv">
-          <input type="checkbox" id="gdpr" />
-          <label htmlFor="gdpr">I have agreed to GDPR</label>
+          <div>
+            <input type="checkbox" id="gdpr" />
+            <label htmlFor="gdpr">I have agreed to GDPR</label>
+          </div>
+          <button className="primaryBtn">
+            <p>Make reservation</p>
+          </button>
         </div>
-
-        <button className="primary-button"><p>Make reservation</p></button>
 
       </div>
     </div>
