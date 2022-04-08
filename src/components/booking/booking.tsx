@@ -6,7 +6,7 @@ import moment from "moment";
 import "animate.css";
 
 const Booking = () => {
-  const [amount, setAmount] = useState([1]);
+  const [amount, setAmount] = useState([0]);
   const [date, setDate] = useState(new Date());
   const [showDate, setShowDate] = useState(false);
 
@@ -15,7 +15,9 @@ const Booking = () => {
   }
 
   const updateAmount = (e: any, amount: any) => {
+    if()
     setAmount(amount);
+    setShowDate(true);
     console.log(amount);
   };
 
@@ -78,18 +80,11 @@ const Booking = () => {
           How many is in your <span className="goldenSpan">party?</span>
         </h2>
         <div style={{ width: 300, margin: 30 }}>
-          <Slider
-            min={1}
-            max={6}
-            onChange={updateAmount}
-            value={amount}
-            disabled={showDate}
-          />
+          <Slider min={0} max={6} onChange={updateAmount} value={amount} />
           {amount}
         </div>
       </div>
 
-      <button onClick={handleDateClick}>test</button>
       {showDate && (
         <div className="calendarDiv animate__animated animate__bounceInLeft">
           <h2>
