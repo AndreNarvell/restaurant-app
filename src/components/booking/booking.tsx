@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import React, { ChangeEvent, useState } from "react";
 import moment from "moment";
 import "animate.css";
+import { IClient } from "../../models/IClient";
 
 const Booking = () => {
   const [amount, setAmount] = useState([0]);
@@ -11,6 +12,13 @@ const Booking = () => {
   const [time, setTime] = useState("");
   const [showDate, setShowDate] = useState(false);
   const [showTime, setShowTime] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [newClient, setNewClient] = useState<IClient>({
+    name: '',
+    lastname: '',
+    email: '',
+    phone: ''
+  });
 
   const updateAmount = (e: any, amount: any) => {
     if (amount > 0) {
@@ -27,30 +35,17 @@ const Booking = () => {
   const handleTime = (e: any) => {
     const value = e.currentTarget.value;
     setTime(value);
+
+    setShowForm(true)
   };
 
-  const formBookingSection = () => {
-    return (
-      <div className="formDiv">
-        <form>
-          <input type="text" placeholder="First name.." />
-          <input type="text" placeholder="Last name.." />
-          <input type="email" placeholder="Email.." />
-          <input type="text" placeholder="Phone number.." />
-        </form>
+  const handleRegister = (e: ChangeEvent<HTMLInputElement>) => {
+    let name = e.target.name;
 
-        <div className="checkboxDiv">
-          <div>
-            <input type="checkbox" id="gdpr" />
-            <label htmlFor="gdpr">I have agreed to GDPR</label>
-          </div>
-          <button className="primaryBtn">
-            <p>Make reservation</p>
-          </button>
-        </div>
-      </div>
-    );
-  };
+    setNewClient({...newClient, [name]: e.target.value});
+
+    console.log(e.target.value);
+  }
 
   return (
     <div className="bookingContainer">
@@ -100,6 +95,27 @@ const Booking = () => {
 
           <p>{time}</p>        
         </div>
+      )}
+
+      {showForm && (
+        <div className="formDiv">
+        <form>
+          <input type="text" placeholder="First name.." name="name" value={newClient.name} onChange={handleRegister} />
+          <input type="text" placeholder="Last name.." name="lastname" value={newClient.lastname} onChange={handleRegister} />
+          <input type="email" placeholder="Email.." name="email" value={newClient.email} onChange={handleRegister} />
+          <input type="text" placeholder="Phone number.." name="phone" value={newClient.phone} onChange={handleRegister} />
+        </form>
+
+        <div className="checkboxDiv">
+          <div>
+            <input type="checkbox" id="gdpr" />
+            <label htmlFor="gdpr">I have agreed to GDPR</label>
+          </div>
+          <button className="primaryBtn">
+            <p>Make reservation</p>
+          </button>
+        </div>
+      </div>
       )}
     </div>
   );
