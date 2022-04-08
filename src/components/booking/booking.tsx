@@ -5,6 +5,7 @@ import React, { ChangeEvent, useState } from "react";
 import moment from "moment";
 import "animate.css";
 import { IClient } from "../../models/IClient";
+import lovelyPancake from "../../images/lovelyPancake.png";
 
 const Booking = () => {
   const [amount, setAmount] = useState([0]);
@@ -19,6 +20,12 @@ const Booking = () => {
     email: '',
     phone: ''
   });
+  const [showReservation, setShowReservation] = useState(false);
+  const [agree, setAgree] = useState(false);
+
+  const checkboxHandler = () => {
+    setAgree(!agree);
+  }
 
   const updateAmount = (e: any, amount: any) => {
     if (amount > 0) {
@@ -46,6 +53,10 @@ const Booking = () => {
 
     console.log(e.target.value);
   }
+
+  const handleReservation = () => {
+    setShowReservation(true)
+  };
 
   return (
     <div className="bookingContainer">
@@ -108,14 +119,21 @@ const Booking = () => {
 
         <div className="checkboxDiv">
           <div>
-            <input type="checkbox" id="gdpr" />
+            <input type="checkbox" id="gdpr" onChange={checkboxHandler} />
             <label htmlFor="gdpr">I have agreed to GDPR</label>
           </div>
-          <button className="primaryBtn">
+          <button className="primaryBtn" onClick={handleReservation} disabled={!agree}>
             <p>Make reservation</p>
           </button>
         </div>
       </div>
+      )}
+
+      {showReservation && (
+        <div className="completeDiv">
+          <h2>Booking completed!</h2>
+          <img className="lovelyPancake" src={lovelyPancake} alt="" />
+        </div>
       )}
     </div>
   );
