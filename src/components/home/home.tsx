@@ -6,19 +6,19 @@ const Home = () => {
   return (
     <div className="container">
       <div className="homeImg">
-        <img src={pancakes} alt="" />
+        <img src={pancakes} alt="pancake image" />
       </div>
       <div className="homeText">
         <h1>
-          They aren't pancakes, if they aren't <span className="golden-span">Golden</span>!
+          They aren't pancakes, if they aren't <span className="goldenSpan">Golden</span>!
         </h1>
         <Link to="/booking">
-          <button className="primary-button">
+          <button className="primaryBtn">
             <p>book a table</p>
           </button>
         </Link>
         <Link to="/contact">
-          <button className="primary-button">
+          <button className="primaryBtn">
             <p>contact</p>
           </button>
         </Link>

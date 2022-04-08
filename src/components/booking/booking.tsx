@@ -8,26 +8,28 @@ import { IClient } from "../../models/IClient";
 import lovelyPancake from "../../images/lovelyPancake.png";
 
 const Booking = () => {
+  // Seting state for each new section
   const [amount, setAmount] = useState([0]);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState("");
+  const [agree, setAgree] = useState(false);
+
+  // Condition for rendering new sections
   const [showDate, setShowDate] = useState(false);
   const [showTime, setShowTime] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showReservation, setShowReservation] = useState(false);
+
+  // Seting state for input (IClient)
   const [newClient, setNewClient] = useState<IClient>({
     name: '',
     lastname: '',
     email: '',
     phone: ''
   });
-  const [showReservation, setShowReservation] = useState(false);
-  const [agree, setAgree] = useState(false);
 
-  const checkboxHandler = () => {
-    setAgree(!agree);
-  }
-
-  const updateAmount = (e: any, amount: any) => {
+  // Functions
+  const handleAmount = (e: any, amount: any) => {
     if (amount > 0) {
       setAmount(amount);
       setShowDate(true);
@@ -58,6 +60,10 @@ const Booking = () => {
     setShowReservation(true)
   };
 
+  const handleCheckbox = () => {
+    setAgree(!agree);
+  }
+
   return (
     <div className="bookingContainer">
       <div>
@@ -72,11 +78,12 @@ const Booking = () => {
           How many is in your <span className="goldenSpan">party?</span>
         </h2>
         <div style={{ width: 300, margin: 30 }}>
-          <Slider min={0} max={6} onChange={updateAmount} value={amount} />
+          <Slider min={0} max={6} onChange={handleAmount} value={amount} />
           {amount}
         </div>
       </div>
 
+      {/* Calendar */}
       {showDate && (
         <div className="calendarDiv animate__animated animate__bounceInLeft">
           <h2>
@@ -91,6 +98,7 @@ const Booking = () => {
         </div>
       )}
 
+      {/* Choose Time */}
       {showTime && (
         <div className="chooseTimeDiv">
           <h2>
@@ -108,6 +116,7 @@ const Booking = () => {
         </div>
       )}
 
+      {/* Form */}
       {showForm && (
         <div className="formDiv">
         <form>
@@ -117,9 +126,10 @@ const Booking = () => {
           <input type="text" placeholder="Phone number.." name="phone" value={newClient.phone} onChange={handleRegister} />
         </form>
 
+        {/* Checkbox */}
         <div className="checkboxDiv">
           <div>
-            <input type="checkbox" id="gdpr" onChange={checkboxHandler} />
+            <input type="checkbox" id="gdpr" onChange={handleCheckbox} />
             <label htmlFor="gdpr">I have agreed to GDPR</label>
           </div>
           <button className="primaryBtn" onClick={handleReservation} disabled={!agree}>
@@ -129,6 +139,7 @@ const Booking = () => {
       </div>
       )}
 
+      {/* Booking Completed */}
       {showReservation && (
         <div className="completeDiv">
           <h2>Booking completed!</h2>
