@@ -3,6 +3,7 @@ import { Slider } from "@material-ui/core";
 import Calendar from "react-calendar";
 import { ChangeEvent, useState } from "react";
 import moment from "moment";
+import "animate.css";
 
 const Booking = () => {
   const [amount, setAmount] = useState([1]);
@@ -10,7 +11,7 @@ const Booking = () => {
   const [showDate, setShowDate] = useState(false);
 
   function handleDateClick() {
-    setShowDate(!showDate);
+    setShowDate(true);
   }
 
   const updateAmount = (e: any, amount: any) => {
@@ -88,11 +89,9 @@ const Booking = () => {
         </div>
       </div>
 
-      <button onClick={handleDateClick} disabled={showDate}>
-        test
-      </button>
+      <button onClick={handleDateClick}>test</button>
       {showDate && (
-        <div className="calendarDiv">
+        <div className="calendarDiv animate__animated animate__bounceInLeft">
           <h2>
             When would you like to <span className="goldenSpan">party?</span>
           </h2>
