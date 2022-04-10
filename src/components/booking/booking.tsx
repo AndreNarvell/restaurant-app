@@ -7,6 +7,8 @@ import "animate.css";
 import { IClient } from "../../models/IClient";
 import lovelyPancake from "../../images/lovelyPancake.png";
 import { IBooking } from "../../models/IBooking";
+import { format } from "date-fns";
+import axios from "axios";
 
 const Booking = () => {
   // Seting state for each new section
@@ -38,7 +40,7 @@ const Booking = () => {
   });
 
   // Functions
-  const handleAmount = (e: any, amount: any) => {
+  const handleAmount = (amount: any) => {
     if (amount > 0) {
       setAmount(amount);
       setShowDate(true);
@@ -48,7 +50,10 @@ const Booking = () => {
 
   const handleDate = (date: any) => {
     setDate(date);
-    setNewBooking({ ...newBooking, date: date.toLocaleDateString() });
+
+    //fattar ingenting vad är det som funkar???
+    // setNewBooking({ ...newBooking, date: date.toLocaleDateString() });
+    setNewBooking({ ...newBooking, date: format(date, "yyyy-MM-dd") });
 
     setShowTime(true);
   };
@@ -65,14 +70,27 @@ const Booking = () => {
     let name = e.target.name;
 
     setNewClient({ ...newClient, [name]: e.target.value });
-    setNewBooking({ ...newBooking, customer: newClient });
+    // setNewBooking({ ...newBooking, customer: newClient });
 
     console.log(e.target.value);
+  };
+
+  useEffect(() => {
+    setNewBooking({ ...newBooking, customer: newClient });
+  }, [newBooking, newClient]);
+
+  const postBooking = async () => {
+    const response = await axios.post<IBooking>(
+      "https://school-restaurant-api.azurewebsites.net/booking/create",
+      newBooking
+    );
+    console.log(response);
   };
 
   const handleReservation = () => {
     setShowReservation(true);
     console.log(newBooking);
+    postBooking();
   };
 
   const handleCheckbox = () => {
