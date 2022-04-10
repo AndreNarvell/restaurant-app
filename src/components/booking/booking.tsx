@@ -1,15 +1,16 @@
 import "./booking.scss";
 import { Slider } from "@material-ui/core";
 import Calendar from "react-calendar";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import moment from "moment";
 import "animate.css";
 import { IClient } from "../../models/IClient";
 import lovelyPancake from "../../images/lovelyPancake.png";
+import { IBooking } from "../../models/IBooking";
 
 const Booking = () => {
   // Seting state for each new section
-  const [amount, setAmount] = useState([0]);
+  const [amount, setAmount] = useState(0);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState("");
   const [agree, setAgree] = useState(false);
@@ -22,10 +23,18 @@ const Booking = () => {
 
   // Seting state for input (IClient)
   const [newClient, setNewClient] = useState<IClient>({
-    name: '',
-    lastname: '',
-    email: '',
-    phone: ''
+    name: "",
+    lastname: "",
+    email: "",
+    phone: "",
+  });
+
+  const [newBooking, setNewBooking] = useState<IBooking>({
+    restaurantId: "624abd70df8a9fb11c3ea8b8",
+    date: "",
+    time: "",
+    numberOfGuests: 0,
+    customer: newClient,
   });
 
   // Functions
@@ -33,36 +42,48 @@ const Booking = () => {
     if (amount > 0) {
       setAmount(amount);
       setShowDate(true);
+      setNewBooking({ ...newBooking, numberOfGuests: amount });
     }
   };
 
   const handleDate = (date: any) => {
     setDate(date);
+    setNewBooking({ ...newBooking, date: date.toLocaleDateString() });
+
     setShowTime(true);
   };
 
   const handleTime = (e: any) => {
     const value = e.currentTarget.value;
     setTime(value);
+    setNewBooking({ ...newBooking, time: value });
 
-    setShowForm(true)
+    setShowForm(true);
   };
 
   const handleRegister = (e: ChangeEvent<HTMLInputElement>) => {
     let name = e.target.name;
 
-    setNewClient({...newClient, [name]: e.target.value});
+    setNewClient({ ...newClient, [name]: e.target.value });
+    setNewBooking({ ...newBooking, customer: newClient });
 
     console.log(e.target.value);
-  }
+  };
 
   const handleReservation = () => {
-    setShowReservation(true)
+    setShowReservation(true);
+    console.log(newBooking);
   };
 
   const handleCheckbox = () => {
     setAgree(!agree);
-  }
+  };
+
+  // useEffect(() => {
+  //   setNewBooking({
+  //     time: time
+  //   })
+  // })
 
   return (
     <div className="bookingContainer">
@@ -94,7 +115,7 @@ const Booking = () => {
             value={date}
             minDate={moment().toDate()}
           />
-          <p>{date.toISOString().split("T")[0]}</p>
+          <p>{date.toLocaleString().split("T")[0]}</p>
         </div>
       )}
 
@@ -112,31 +133,59 @@ const Booking = () => {
             <p>21.00</p>
           </button>
 
-          <p>{time}</p>        
+          <p>{time}</p>
         </div>
       )}
 
       {/* Form */}
       {showForm && (
         <div className="formDiv">
-        <form>
-          <input type="text" placeholder="First name.." name="name" value={newClient.name} onChange={handleRegister} />
-          <input type="text" placeholder="Last name.." name="lastname" value={newClient.lastname} onChange={handleRegister} />
-          <input type="email" placeholder="Email.." name="email" value={newClient.email} onChange={handleRegister} />
-          <input type="text" placeholder="Phone number.." name="phone" value={newClient.phone} onChange={handleRegister} />
-        </form>
+          <form>
+            <input
+              type="text"
+              placeholder="First name.."
+              name="name"
+              value={newClient.name}
+              onChange={handleRegister}
+            />
+            <input
+              type="text"
+              placeholder="Last name.."
+              name="lastname"
+              value={newClient.lastname}
+              onChange={handleRegister}
+            />
+            <input
+              type="email"
+              placeholder="Email.."
+              name="email"
+              value={newClient.email}
+              onChange={handleRegister}
+            />
+            <input
+              type="text"
+              placeholder="Phone number.."
+              name="phone"
+              value={newClient.phone}
+              onChange={handleRegister}
+            />
+          </form>
 
-        {/* Checkbox */}
-        <div className="checkboxDiv">
-          <div>
-            <input type="checkbox" id="gdpr" onChange={handleCheckbox} />
-            <label htmlFor="gdpr">I have agreed to GDPR</label>
+          {/* Checkbox */}
+          <div className="checkboxDiv">
+            <div>
+              <input type="checkbox" id="gdpr" onChange={handleCheckbox} />
+              <label htmlFor="gdpr">I have agreed to GDPR</label>
+            </div>
+            <button
+              className="primaryBtn"
+              onClick={handleReservation}
+              disabled={!agree}
+            >
+              <p>Make reservation</p>
+            </button>
           </div>
-          <button className="primaryBtn" onClick={handleReservation} disabled={!agree}>
-            <p>Make reservation</p>
-          </button>
         </div>
-      </div>
       )}
 
       {/* Booking Completed */}
