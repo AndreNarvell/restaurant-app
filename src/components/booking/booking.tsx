@@ -1,7 +1,7 @@
 import "./booking.scss";
 import { Slider } from "@material-ui/core";
 import Calendar from "react-calendar";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import moment from "moment";
 import "animate.css";
 import { IClient } from "../../models/IClient";
@@ -78,6 +78,12 @@ const Booking = () => {
   const handleCheckbox = () => {
     setAgree(!agree);
   };
+
+  // useEffect(() => {
+  //   setNewBooking({
+  //     time: time
+  //   })
+  // })
 
   return (
     <div className="bookingContainer">
