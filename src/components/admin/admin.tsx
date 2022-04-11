@@ -1,11 +1,12 @@
+import "./admin.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ICustomer } from "../../models/ICustomer";
+// import { ICustomer } from "../../models/ICustomer";
 import { IGetBooking } from "../../models/IGetBooking";
 
 const Admin = () => {
   const [getBooking, setGetBooking] = useState<IGetBooking[]>([]);
-  const [getCustomer, setGetCustomer] = useState<ICustomer[]>([]);
+  // const [getCustomer, setGetCustomer] = useState<ICustomer[]>([]);
 
   //Lägg till i en service komponent? hjälp
   const fetchBooking = async () => {
@@ -33,21 +34,29 @@ const Admin = () => {
         <td>{i + 1}</td>
         <td>Anna</td>
         <td>{booking.numberOfGuests}</td>
-        <td>{booking.date}</td>
+        <td className="dateTd">{booking.date}</td>
         <td>{booking.time}</td>
-        <td><button>Edit</button></td>
-        <td><button>Delete</button></td>
+        <td>
+          <button>
+            <p>✏️</p>
+          </button>
+        </td>
+        <td>
+          <button>
+            <p>🗑️</p>
+          </button>
+        </td>
       </tr>
     );
   });
 
 
   return (
-    <>
+    <div className="tableContainer">
       <table>
         <tr>
-          <th>Table nr</th>
-          <th>Customer name</th>
+          <th>Table</th>
+          <th>Name</th>
           <th>Seats</th>
           <th>Date</th>
           <th>Time</th>
@@ -56,7 +65,8 @@ const Admin = () => {
         </tr>
         {bookings}
       </table>
-    </>
+    </div>
+
   );
 };
 
