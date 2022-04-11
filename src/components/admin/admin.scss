@@ -2,51 +2,22 @@
     font-family: inherit;
 }
 
-.tableContainer {
-    overflow-x: auto;
-
+.bookingCard {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
+    background-color: rgb(226, 132, 132);
+    width: 250px;
+    height: 250px;
+    margin: 5px;
+    border-radius: 100%;
+}
 
-    table {
-        width: min(90%, 30rem);
-        border-collapse: collapse;
+.cardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 
-        td,
-        th {
-            border: 1px solid #c0bebe;
-            padding: 1rem 0.5rem 1rem 0.5rem;
-        }
-
-        .dateTd {
-            min-width: 6rem;
-        }
-
-        th {
-            border: none;
-            background-color: #c46744;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        button {
-            border: none;
-            background: none;
-            cursor: pointer;
-            transition: all 500ms;
-
-
-            &:hover {
-                transform: scale(150%);
-            }
-
-            & p {
-                font-size: 1rem;
-            }
-        }
-    }
 }
