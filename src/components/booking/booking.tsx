@@ -4,9 +4,11 @@ import Calendar from "react-calendar";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import moment from "moment";
 import "animate.css";
-import { IClient } from "../../models/IClient";
 import lovelyPancake from "../../images/lovelyPancake.png";
 import { IBooking } from "../../models/IBooking";
+import { format } from "date-fns";
+import axios from "axios";
+import { ICustomer } from "../../models/ICustomer";
 
 const Booking = () => {
   // Seting state for each new section
@@ -21,8 +23,8 @@ const Booking = () => {
   const [showForm, setShowForm] = useState(false);
   const [showReservation, setShowReservation] = useState(false);
 
-  // Seting state for input (IClient)
-  const [newClient, setNewClient] = useState<IClient>({
+  // Seting state for input (ICustomer)
+  const [newCustomer, setNewCustomer] = useState<ICustomer>({
     name: "",
     lastname: "",
     email: "",
@@ -34,10 +36,11 @@ const Booking = () => {
     date: "",
     time: "",
     numberOfGuests: 0,
-    customer: newClient,
+    customer: newCustomer,
   });
 
   // Functions
+  //Hjälp vad gör e
   const handleAmount = (e: any, amount: any) => {
     if (amount > 0) {
       setAmount(amount);
@@ -48,7 +51,10 @@ const Booking = () => {
 
   const handleDate = (date: any) => {
     setDate(date);
-    setNewBooking({ ...newBooking, date: date.toLocaleDateString() });
+
+    //fattar ingenting vad är det som funkar???
+    // setNewBooking({ ...newBooking, date: date.toLocaleDateString() });
+    setNewBooking({ ...newBooking, date: format(date, "yyyy-MM-dd") });
 
     setShowTime(true);
   };
@@ -64,26 +70,33 @@ const Booking = () => {
   const handleRegister = (e: ChangeEvent<HTMLInputElement>) => {
     let name = e.target.name;
 
-    setNewClient({ ...newClient, [name]: e.target.value });
-    setNewBooking({ ...newBooking, customer: newClient });
+    setNewCustomer({ ...newCustomer, [name]: e.target.value });
+    // setNewBooking({ ...newBooking, customer: newCustomer });
 
     console.log(e.target.value);
+  };
+
+  useEffect(() => {
+    setNewBooking({ ...newBooking, customer: newCustomer });
+  }, [newBooking, newCustomer]);
+
+  const postBooking = async () => {
+    const response = await axios.post<IBooking>(
+      "https://school-restaurant-api.azurewebsites.net/booking/create",
+      newBooking
+    );
+    console.log(response);
   };
 
   const handleReservation = () => {
     setShowReservation(true);
     console.log(newBooking);
+    postBooking();
   };
 
   const handleCheckbox = () => {
     setAgree(!agree);
   };
-
-  // useEffect(() => {
-  //   setNewBooking({
-  //     time: time
-  //   })
-  // })
 
   return (
     <div className="bookingContainer">
@@ -145,28 +158,28 @@ const Booking = () => {
               type="text"
               placeholder="First name.."
               name="name"
-              value={newClient.name}
+              value={newCustomer.name}
               onChange={handleRegister}
             />
             <input
               type="text"
               placeholder="Last name.."
               name="lastname"
-              value={newClient.lastname}
+              value={newCustomer.lastname}
               onChange={handleRegister}
             />
             <input
               type="email"
               placeholder="Email.."
               name="email"
-              value={newClient.email}
+              value={newCustomer.email}
               onChange={handleRegister}
             />
             <input
               type="text"
               placeholder="Phone number.."
               name="phone"
-              value={newClient.phone}
+              value={newCustomer.phone}
               onChange={handleRegister}
             />
           </form>
