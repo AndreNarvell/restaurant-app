@@ -40,7 +40,8 @@ const Booking = () => {
   });
 
   // Functions
-  const handleAmount = (amount: any) => {
+  //Hjälp vad gör e
+  const handleAmount = (e: any, amount: any) => {
     if (amount > 0) {
       setAmount(amount);
       setShowDate(true);
@@ -96,12 +97,6 @@ const Booking = () => {
   const handleCheckbox = () => {
     setAgree(!agree);
   };
-
-  // useEffect(() => {
-  //   setNewBooking({
-  //     time: time
-  //   })
-  // })
 
   return (
     <div className="bookingContainer">
