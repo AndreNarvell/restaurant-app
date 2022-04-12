@@ -9,8 +9,16 @@ import { IBooking } from "../../models/IBooking";
 import { format } from "date-fns";
 import axios from "axios";
 import { ICustomer } from "../../models/ICustomer";
+import { IGetBooking } from "../../models/IGetBooking";
 
 const Booking = () => {
+  const fetchBooking = async () => {
+    const response = await axios.get<IGetBooking[]>(
+      "https://school-restaurant-api.azurewebsites.net/booking/restaurant/624abd70df8a9fb11c3ea8b8"
+    );
+    setBookings(response.data);
+  };
+
   // Seting state for each new section
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState(new Date());
@@ -22,6 +30,8 @@ const Booking = () => {
   const [showTime, setShowTime] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showReservation, setShowReservation] = useState(false);
+  const [showEarly, setShowEarly] = useState(true);
+  const [showLate, setShowLate] = useState(true);
 
   // Seting state for input (ICustomer)
   const [newCustomer, setNewCustomer] = useState<ICustomer>({
@@ -39,6 +49,8 @@ const Booking = () => {
     customer: newCustomer,
   });
 
+  const [bookings, setBookings] = useState<IGetBooking[]>([]);
+
   // Functions
   //Hjälp vad gör e
   const handleAmount = (e: any, amount: any) => {
@@ -49,14 +61,40 @@ const Booking = () => {
     }
   };
 
+  const checkAvailability = (tempDate: any) => {
+    const tDate = format(tempDate, "yyyy-MM-dd");
+    const earlyBookings = bookings.filter(function (el) {
+      return el.date == tDate && el.time == "18:00";
+    });
+
+    const lateBookings = bookings.filter(function (el) {
+      return el.date == tDate && el.time == "21:00";
+    });
+
+    if (earlyBookings.length >= 8) {
+      setShowEarly(false);
+    } else {
+      setShowEarly(true);
+    }
+
+    if (lateBookings.length >= 5) {
+      setShowLate(false);
+    } else {
+      setShowLate(true);
+    }
+  };
+
   const handleDate = (date: any) => {
+    const tempDate = date;
+
     setDate(date);
 
-    //fattar ingenting vad är det som funkar???
     // setNewBooking({ ...newBooking, date: date.toLocaleDateString() });
     setNewBooking({ ...newBooking, date: format(date, "yyyy-MM-dd") });
 
     setShowTime(true);
+
+    checkAvailability(tempDate);
   };
 
   const handleTime = (e: any) => {
@@ -75,6 +113,10 @@ const Booking = () => {
 
     console.log(e.target.value);
   };
+
+  useEffect(() => {
+    fetchBooking();
+  }, []);
 
   useEffect(() => {
     setNewBooking({ ...newBooking, customer: newCustomer });
@@ -138,13 +180,17 @@ const Booking = () => {
           <h2>
             Available <span className="goldenSpan">party times:</span>
           </h2>
-          <button className="primaryBtn" onClick={handleTime} value="18:00">
-            <p>18.00</p>
-          </button>
+          {showEarly && (
+            <button className="primaryBtn" onClick={handleTime} value="18:00">
+              <p>18.00</p>
+            </button>
+          )}
 
-          <button className="primaryBtn" onClick={handleTime} value="21:00">
-            <p>21.00</p>
-          </button>
+          {showLate && (
+            <button className="primaryBtn" onClick={handleTime} value="21:00">
+              <p>21.00</p>
+            </button>
+          )}
 
           <p>{time}</p>
         </div>
