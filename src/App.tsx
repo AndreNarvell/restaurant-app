@@ -20,7 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <nav>
+        <nav className="navLogo">
           <NavLink to={"/"}>
             {" "}
             <img style={{ width: "100px" }} src={logo} alt="" />{" "}

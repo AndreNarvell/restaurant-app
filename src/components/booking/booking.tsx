@@ -144,7 +144,7 @@ const Booking = () => {
     <div className="bookingContainer">
       <div>
         <div className="bookTable">
-          <h1>book a table</h1>
+          <h1>Book a table</h1>
         </div>
       </div>
 
@@ -170,88 +170,104 @@ const Booking = () => {
             value={date}
             minDate={moment().toDate()}
           />
-          <p>{date.toLocaleString().split("T")[0]}</p>
         </div>
       )}
 
       {/* Choose Time */}
       {showTime && (
-        <div className="chooseTimeDiv">
-          <h2>
-            Available <span className="goldenSpan">party times:</span>
-          </h2>
-          {showEarly && (
-            <button className="primaryBtn" onClick={handleTime} value="18:00">
-              <p>18.00</p>
-            </button>
-          )}
+        <div className="calendarDiv animate__animated animate__bounceInLeft">
+          <div className="chooseTimeDiv">
+            <h2>
+              Available <span className="goldenSpan">party times:</span>
+            </h2>
 
-          {showLate && (
-            <button className="primaryBtn" onClick={handleTime} value="21:00">
-              <p>21.00</p>
-            </button>
-          )}
+            <div className="timeBtnDiv">
+              {showEarly && (
+                <button
+                  className="primaryBtn"
+                  onClick={handleTime}
+                  value="18:00"
+                >
+                    <p>18.00</p>
+                </button>
+              )}
 
-          <p>{time}</p>
+              {showLate && (
+                <button
+                  className="primaryBtn"
+                  onClick={handleTime}
+                  value="21:00"
+                >
+                    <p>21.00</p>
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       )}
 
       {/* Form */}
       {showForm && (
-        <div className="formDiv">
-          <form>
-            <input
-              type="text"
-              placeholder="First name.."
-              name="name"
-              value={newCustomer.name}
-              onChange={handleRegister}
-            />
-            <input
-              type="text"
-              placeholder="Last name.."
-              name="lastname"
-              value={newCustomer.lastname}
-              onChange={handleRegister}
-            />
-            <input
-              type="email"
-              placeholder="Email.."
-              name="email"
-              value={newCustomer.email}
-              onChange={handleRegister}
-            />
-            <input
-              type="text"
-              placeholder="Phone number.."
-              name="phone"
-              value={newCustomer.phone}
-              onChange={handleRegister}
-            />
-          </form>
+        <div className="calendarDiv animate__animated animate__bounceInLeft">
+          <div className="formDiv">
+            <form>
+              <input
+                type="text"
+                placeholder="First name.."
+                name="name"
+                value={newCustomer.name}
+                onChange={handleRegister}
+              />
+              <input
+                type="text"
+                placeholder="Last name.."
+                name="lastname"
+                value={newCustomer.lastname}
+                onChange={handleRegister}
+              />
+              <input
+                type="email"
+                placeholder="Email.."
+                name="email"
+                value={newCustomer.email}
+                onChange={handleRegister}
+              />
+              <input
+                type="text"
+                placeholder="Phone number.."
+                name="phone"
+                value={newCustomer.phone}
+                onChange={handleRegister}
+              />
+            </form>
 
-          {/* Checkbox */}
-          <div className="checkboxDiv">
-            <div>
-              <input type="checkbox" id="gdpr" onChange={handleCheckbox} />
-              <label htmlFor="gdpr">I have agreed to GDPR</label>
+            {/* Checkbox */}
+            <div className="checkboxDiv">
+              <div>
+                <input type="checkbox" id="gdpr" onChange={handleCheckbox} />
+                <label htmlFor="gdpr">I have agreed to GDPR</label>
+              </div>
+              <div className="primaryBtnContainer">
+                <button
+                  className="primaryBtn"
+                  onClick={handleReservation}
+                  disabled={!agree}
+                >
+                  <p>Make reservation</p>
+                </button>
+              </div>
             </div>
-            <button
-              className="primaryBtn"
-              onClick={handleReservation}
-              disabled={!agree}
-            >
-              <p>Make reservation</p>
-            </button>
           </div>
         </div>
       )}
 
       {/* Booking Completed */}
       {showReservation && (
-        <div className="completeDiv">
-          <h2>Booking completed!</h2>
-          <img className="lovelyPancake" src={lovelyPancake} alt="" />
+        <div className="calendarDiv animate__animated animate__bounceInLeft">
+          <div className="completeDiv">
+            <h2>Booking completed!</h2>
+            <img className="lovelyPancake" src={lovelyPancake} alt="a lovely pancake" />
+          </div>
         </div>
       )}
     </div>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="container">
+    <div className="homeContainer">
       <div className="homeImg">
         <img src={pancakes} alt="pancake image" />
       </div>
@@ -12,6 +12,7 @@ const Home = () => {
         <h1>
           They aren't pancakes, if they aren't <span className="goldenSpan">Golden</span>!
         </h1>
+        <div className="btnContainer">
         <Link to="/booking">
           <button className="primaryBtn">
             <p>book a table</p>
@@ -22,6 +23,7 @@ const Home = () => {
             <p>contact</p>
           </button>
         </Link>
+        </div>
       </div>
     </div>
   );
