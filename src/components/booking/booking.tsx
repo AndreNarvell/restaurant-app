@@ -64,11 +64,11 @@ const Booking = () => {
   const checkAvailability = (tempDate: any) => {
     const tDate = format(tempDate, "yyyy-MM-dd");
     const earlyBookings = bookings.filter(function (el) {
-      return el.date == tDate && el.time == "18:00";
+      return el.date === tDate && el.time === "18:00";
     });
 
     const lateBookings = bookings.filter(function (el) {
-      return el.date == tDate && el.time == "21:00";
+      return el.date === tDate && el.time === "21:00";
     });
 
     if (earlyBookings.length >= 8) {
@@ -188,7 +188,7 @@ const Booking = () => {
                   onClick={handleTime}
                   value="18:00"
                 >
-                    <p>18.00</p>
+                  <p>18.00</p>
                 </button>
               )}
 
@@ -198,7 +198,7 @@ const Booking = () => {
                   onClick={handleTime}
                   value="21:00"
                 >
-                    <p>21.00</p>
+                  <p>21.00</p>
                 </button>
               )}
             </div>
