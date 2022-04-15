@@ -1,0 +1,23 @@
+* {
+    font-family: inherit;
+}
+
+.bookingCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(226, 132, 132);
+    width: 250px;
+    height: 250px;
+    margin: 5px;
+    border-radius: 100%;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+}

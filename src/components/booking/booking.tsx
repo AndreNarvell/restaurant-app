@@ -4,13 +4,21 @@ import Calendar from "react-calendar";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import moment from "moment";
 import "animate.css";
-import { IClient } from "../../models/IClient";
 import lovelyPancake from "../../images/lovelyPancake.png";
 import { IBooking } from "../../models/IBooking";
 import { format } from "date-fns";
 import axios from "axios";
+import { ICustomer } from "../../models/ICustomer";
+import { IGetBooking } from "../../models/IGetBooking";
 
 const Booking = () => {
+  const fetchBooking = async () => {
+    const response = await axios.get<IGetBooking[]>(
+      "https://school-restaurant-api.azurewebsites.net/booking/restaurant/624abd70df8a9fb11c3ea8b8"
+    );
+    setBookings(response.data);
+  };
+
   // Seting state for each new section
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState(new Date());
@@ -22,9 +30,11 @@ const Booking = () => {
   const [showTime, setShowTime] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showReservation, setShowReservation] = useState(false);
+  const [showEarly, setShowEarly] = useState(true);
+  const [showLate, setShowLate] = useState(true);
 
-  // Seting state for input (IClient)
-  const [newClient, setNewClient] = useState<IClient>({
+  // Seting state for input (ICustomer)
+  const [newCustomer, setNewCustomer] = useState<ICustomer>({
     name: "",
     lastname: "",
     email: "",
@@ -36,8 +46,10 @@ const Booking = () => {
     date: "",
     time: "",
     numberOfGuests: 0,
-    customer: newClient,
+    customer: newCustomer,
   });
+
+  const [bookings, setBookings] = useState<IGetBooking[]>([]);
 
   // Functions
   //Hjälp vad gör e
@@ -49,14 +61,40 @@ const Booking = () => {
     }
   };
 
+  const checkAvailability = (tempDate: any) => {
+    const tDate = format(tempDate, "yyyy-MM-dd");
+    const earlyBookings = bookings.filter(function (el) {
+      return el.date === tDate && el.time === "18:00";
+    });
+
+    const lateBookings = bookings.filter(function (el) {
+      return el.date === tDate && el.time === "21:00";
+    });
+
+    if (earlyBookings.length >= 8) {
+      setShowEarly(false);
+    } else {
+      setShowEarly(true);
+    }
+
+    if (lateBookings.length >= 5) {
+      setShowLate(false);
+    } else {
+      setShowLate(true);
+    }
+  };
+
   const handleDate = (date: any) => {
+    const tempDate = date;
+
     setDate(date);
 
-    //fattar ingenting vad är det som funkar???
     // setNewBooking({ ...newBooking, date: date.toLocaleDateString() });
     setNewBooking({ ...newBooking, date: format(date, "yyyy-MM-dd") });
 
     setShowTime(true);
+
+    checkAvailability(tempDate);
   };
 
   const handleTime = (e: any) => {
@@ -70,15 +108,19 @@ const Booking = () => {
   const handleRegister = (e: ChangeEvent<HTMLInputElement>) => {
     let name = e.target.name;
 
-    setNewClient({ ...newClient, [name]: e.target.value });
-    // setNewBooking({ ...newBooking, customer: newClient });
+    setNewCustomer({ ...newCustomer, [name]: e.target.value });
+    // setNewBooking({ ...newBooking, customer: newCustomer });
 
     console.log(e.target.value);
   };
 
   useEffect(() => {
-    setNewBooking({ ...newBooking, customer: newClient });
-  }, [newBooking, newClient]);
+    fetchBooking();
+  }, []);
+
+  useEffect(() => {
+    setNewBooking({ ...newBooking, customer: newCustomer });
+  }, [newBooking, newCustomer]);
 
   const postBooking = async () => {
     const response = await axios.post<IBooking>(
@@ -102,7 +144,7 @@ const Booking = () => {
     <div className="bookingContainer">
       <div>
         <div className="bookTable">
-          <h1>book a table</h1>
+          <h1>Book a table</h1>
         </div>
       </div>
 
@@ -128,84 +170,104 @@ const Booking = () => {
             value={date}
             minDate={moment().toDate()}
           />
-          <p>{date.toLocaleString().split("T")[0]}</p>
         </div>
       )}
 
       {/* Choose Time */}
       {showTime && (
-        <div className="chooseTimeDiv">
-          <h2>
-            Available <span className="goldenSpan">party times:</span>
-          </h2>
-          <button className="primaryBtn" onClick={handleTime} value="18:00">
-            <p>18.00</p>
-          </button>
+        <div className="calendarDiv animate__animated animate__bounceInLeft">
+          <div className="chooseTimeDiv">
+            <h2>
+              Available <span className="goldenSpan">party times:</span>
+            </h2>
 
-          <button className="primaryBtn" onClick={handleTime} value="21:00">
-            <p>21.00</p>
-          </button>
+            <div className="timeBtnDiv">
+              {showEarly && (
+                <button
+                  className="primaryBtn"
+                  onClick={handleTime}
+                  value="18:00"
+                >
+                  <p>18.00</p>
+                </button>
+              )}
 
-          <p>{time}</p>
+              {showLate && (
+                <button
+                  className="primaryBtn"
+                  onClick={handleTime}
+                  value="21:00"
+                >
+                  <p>21.00</p>
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       )}
 
       {/* Form */}
       {showForm && (
-        <div className="formDiv">
-          <form>
-            <input
-              type="text"
-              placeholder="First name.."
-              name="name"
-              value={newClient.name}
-              onChange={handleRegister}
-            />
-            <input
-              type="text"
-              placeholder="Last name.."
-              name="lastname"
-              value={newClient.lastname}
-              onChange={handleRegister}
-            />
-            <input
-              type="email"
-              placeholder="Email.."
-              name="email"
-              value={newClient.email}
-              onChange={handleRegister}
-            />
-            <input
-              type="text"
-              placeholder="Phone number.."
-              name="phone"
-              value={newClient.phone}
-              onChange={handleRegister}
-            />
-          </form>
+        <div className="calendarDiv animate__animated animate__bounceInLeft">
+          <div className="formDiv">
+            <form>
+              <input
+                type="text"
+                placeholder="First name.."
+                name="name"
+                value={newCustomer.name}
+                onChange={handleRegister}
+              />
+              <input
+                type="text"
+                placeholder="Last name.."
+                name="lastname"
+                value={newCustomer.lastname}
+                onChange={handleRegister}
+              />
+              <input
+                type="email"
+                placeholder="Email.."
+                name="email"
+                value={newCustomer.email}
+                onChange={handleRegister}
+              />
+              <input
+                type="text"
+                placeholder="Phone number.."
+                name="phone"
+                value={newCustomer.phone}
+                onChange={handleRegister}
+              />
+            </form>
 
-          {/* Checkbox */}
-          <div className="checkboxDiv">
-            <div>
-              <input type="checkbox" id="gdpr" onChange={handleCheckbox} />
-              <label htmlFor="gdpr">I have agreed to GDPR</label>
+            {/* Checkbox */}
+            <div className="checkboxDiv">
+              <div>
+                <input type="checkbox" id="gdpr" onChange={handleCheckbox} />
+                <label htmlFor="gdpr">I have agreed to GDPR</label>
+              </div>
+              <div className="primaryBtnContainer">
+                <button
+                  className="primaryBtn"
+                  onClick={handleReservation}
+                  disabled={!agree}
+                >
+                  <p>Make reservation</p>
+                </button>
+              </div>
             </div>
-            <button
-              className="primaryBtn"
-              onClick={handleReservation}
-              disabled={!agree}
-            >
-              <p>Make reservation</p>
-            </button>
           </div>
         </div>
       )}
 
       {/* Booking Completed */}
       {showReservation && (
-        <div className="completeDiv">
-          <h2>Booking completed!</h2>
-          <img className="lovelyPancake" src={lovelyPancake} alt="" />
+        <div className="calendarDiv animate__animated animate__bounceInLeft">
+          <div className="completeDiv">
+            <h2>Booking completed!</h2>
+            <img className="lovelyPancake" src={lovelyPancake} alt="a lovely pancake" />
+          </div>
         </div>
       )}
     </div>

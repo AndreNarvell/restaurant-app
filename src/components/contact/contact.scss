@@ -1,32 +1,61 @@
-.container {
+.contactContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  //   height: 100vh; - Kolla logo height
+
+  .addressMapContainer {
+
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 
-    .addressMap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
+    .address {
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
     }
 
-    .footer-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    .map {
+      iframe {}
+    }
+  }
 
-        ul {
-            display: block;
-            margin: 0;
-            padding: 0;
-            list-style: none;
+  .footer-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #c46744;
+    text-align: center;
 
-            li {
-                transition: all 500ms;
+    ul {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
 
-                &:hover {
-                    transform: scale(105%);
-                }
-            }
+      li {
+        transition: all 500ms;
+
+        a {
+          display: block;
+          color: black;
+          padding: 1.2rem;
+          text-decoration: none;
         }
+
+        &:hover {
+          transform: scale(105%);
+        }
+      }
     }
+  }
 }
