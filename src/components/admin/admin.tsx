@@ -51,7 +51,6 @@ const Admin = () => {
     console.log('Successfully deleted: ', res);
   }
 
-
   const fetchCustomer = async (customerId: string) => {
     let res = await axios.get<ICustomer[]>(
       `https://school-restaurant-api.azurewebsites.net/customer/${customerId}`
@@ -66,12 +65,12 @@ const Admin = () => {
     // customerName = getCustomer[0].name;
   }
 
-
-  // console.log(customerName);
-
   useEffect(() => {
     fetchBooking();
   }, []);
+
+  // console.log(customerName);
+
 
   // let customerList: ICustomer[] = [];
 
@@ -105,6 +104,7 @@ const Admin = () => {
       </div>
     );
   });
+
 
   // console.log(customerList);
   return (
