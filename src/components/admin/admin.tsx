@@ -84,10 +84,14 @@ const Admin = () => {
 
     return (
       <div className="bookingCard" key={booking._id}>
-        <div key={booking.customerId}>
+        <div className="bookingCardInfo" key={booking.customerId}>
           <p>
-            <strong>Date & Time: </strong>
-            {booking.date}, {booking.time}
+            <strong>Date: </strong>
+            {booking.date}
+          </p>
+          <p>
+            <strong>Time: </strong>
+            {booking.time}
           </p>
           <p>
             <strong>Guest: </strong>
@@ -97,8 +101,8 @@ const Admin = () => {
             <strong>Booking Id: </strong>
             {booking._id}
           </p>
-          <button onClick={() => { deleteBooking(booking._id) }}>Delete</button>
-          <button onClick={() => { fetchCustomer(booking.customerId) }}>Customer</button>
+          <button className="primaryAdminBtn" onClick={() => { deleteBooking(booking._id) }}><p>Delete</p></button>
+          {/* <button onClick={() => { fetchCustomer(booking.customerId) }}>Customer</button> */}
         </div>
       </div>
     );

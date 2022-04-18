@@ -1,23 +1,47 @@
 * {
-    font-family: inherit;
+  font-family: inherit;
 }
 
-.bookingCard {
+.cardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .bookingCard {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(226, 132, 132);
+    background-color: #fff3e7;
+    border: 4px solid #c46744;
+    border-radius: 10px;
     width: 250px;
     height: 250px;
     margin: 5px;
-    border-radius: 100%;
-}
 
-.cardContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    .bookingCardInfo {
+    text-align: center;
+    }
 
+    .primaryAdminBtn {
+        border: none;
+        border-radius: 20px;
+        background-color: #c46744;
+        cursor: pointer;
+        transition: all 500ms;
+        height: 2.5rem;
+        width: 5rem;
+        line-height: 1rem;
+        margin: 0.5rem;
+    
+        &:hover {
+          transform: scale(105%);
+        }
+    
+        p {
+          font-size: 1rem;
+        }
+      }
+  }
 }
