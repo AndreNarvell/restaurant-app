@@ -39,9 +39,7 @@ const Admin = () => {
       tempBookings.map(async (obj) => ({ ...obj, name: await fetchCustomer(obj.customerId) })));
 
     console.log(newBookings)
-
     //setGetBooking(newBookings)
-
   };
 
   const deleteBooking = async (bookingId: string) => {
@@ -49,6 +47,7 @@ const Admin = () => {
       `https://school-restaurant-api.azurewebsites.net/booking/delete/${bookingId}`
     );
     console.log('Successfully deleted: ', res);
+    fetchBooking();
   }
 
 
