@@ -21,13 +21,26 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <nav className="navLogo">
-          <NavLink to={"/"}>
+          <div>
             {" "}
-            <img style={{ width: "100px" }} src={logo} alt="" />{" "}
-          </NavLink>{" "}
-          {/* <NavLink to={"/admin"}>Admin</NavLink>{" "}
-          <NavLink to={"/booking"}>Booking</NavLink>{" "}
-          <NavLink to={"/contact"}>Contact</NavLink> */}
+            <NavLink to={"/"}>
+              {" "}
+              <img style={{ width: "100px" }} src={logo} alt="" />{" "}
+            </NavLink>{" "}
+          </div>
+          <ul>
+            <li>
+              <NavLink className="navLink" to={"/booking"}>
+                Book a table
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink className="navLink" to={"/contact"}>
+                Contact
+              </NavLink>
+            </li>
+          </ul>
         </nav>
 
         <Routes>

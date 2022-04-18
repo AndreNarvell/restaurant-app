@@ -25,20 +25,23 @@ const Admin = () => {
 
     setGetBooking(res.data);
 
-    let tempBookings = res.data
+    let tempBookings = res.data;
 
     // Psuedo kod
     // 1. skapa en ny temporär array
     // 2. for-loop obj in tempBookings => gör fetchCustomer hämta namn, telefonnummer etc i temporära variabler
     //      3. destructrure obj och lägg till de nya värdena typ ...obj, name: tempname, phone: tempphone
     //      4. appenda nya obj på din temporära array
-    // 5. utanför for-loop sätt din nya array med alla tillagda värden till din hook av bookings 
+    // 5. utanför for-loop sätt din nya array med alla tillagda värden till din hook av bookings
 
     const newBookings = await Promise.all(
+      tempBookings.map(async (obj) => ({
+        ...obj,
+        name: await fetchCustomer(obj.customerId),
+      }))
+    );
 
-      tempBookings.map(async (obj) => ({ ...obj, name: await fetchCustomer(obj.customerId) })));
-
-    console.log(newBookings)
+    console.log(newBookings);
     //setGetBooking(newBookings)
   };
 
@@ -46,30 +49,29 @@ const Admin = () => {
     let res = await axios.delete<IGetBooking[]>(
       `https://school-restaurant-api.azurewebsites.net/booking/delete/${bookingId}`
     );
-    console.log('Successfully deleted: ', res);
+    console.log("Successfully deleted: ", res);
     fetchBooking();
-  }
+  };
 
   const fetchCustomer = async (customerId: string) => {
     let res = await axios.get<ICustomer[]>(
       `https://school-restaurant-api.azurewebsites.net/customer/${customerId}`
     );
     //return res.data[0]
-    return res.data[0].name
+    return res.data[0].name;
 
     // setGetCustomer(res.data)
     // console.log('Fetched customer id:', res.data[0].name, res.data[0].phone);
     // setCustomerName(res.data[0].name);
 
     // customerName = getCustomer[0].name;
-  }
+  };
 
   useEffect(() => {
     fetchBooking();
   }, []);
 
   // console.log(customerName);
-
 
   // let customerList: ICustomer[] = [];
 
@@ -101,20 +103,22 @@ const Admin = () => {
             <strong>Booking Id: </strong>
             {booking._id}
           </p>
-          <button className="primaryAdminBtn" onClick={() => { deleteBooking(booking._id) }}><p>Delete</p></button>
+          <button
+            className="primaryAdminBtn"
+            onClick={() => {
+              deleteBooking(booking._id);
+            }}
+          >
+            <p>Delete</p>
+          </button>
           {/* <button onClick={() => { fetchCustomer(booking.customerId) }}>Customer</button> */}
         </div>
       </div>
     );
   });
 
-
   // console.log(customerList);
-  return (
-    <div className="cardContainer">
-      {bookings}
-    </div>
-  );
+  return <div className="cardContainer">{bookings}</div>;
 };
 
 export default Admin;

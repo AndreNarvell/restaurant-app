@@ -143,9 +143,9 @@ const Booking = () => {
   return (
     <div className="bookingContainer">
       <div>
-        <div className="bookTable">
+        {/* <div className="bookTable">
           <h1>Book a table</h1>
-        </div>
+        </div> */}
       </div>
 
       {/* Slider */}
@@ -266,7 +266,11 @@ const Booking = () => {
         <div className="calendarDiv animate__animated animate__bounceInLeft">
           <div className="completeDiv">
             <h2>Booking completed!</h2>
-            <img className="lovelyPancake" src={lovelyPancake} alt="a lovely pancake" />
+            <img
+              className="lovelyPancake"
+              src={lovelyPancake}
+              alt="a lovely pancake"
+            />
           </div>
         </div>
       )}
