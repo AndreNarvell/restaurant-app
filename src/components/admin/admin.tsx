@@ -3,27 +3,42 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ICustomer } from "../../models/ICustomer";
 import { IGetBooking } from "../../models/IGetBooking";
+import { IBookingWithCustomers } from "../../models/IBookingWithCustomers";
 
 const Admin = () => {
-  const [getBooking, setGetBooking] = useState<IGetBooking[]>([]);
+  const [getBooking, setGetBooking] = useState<IBookingWithCustomers[]>([]);
 
   const fetchBooking = async () => {
-    const res = await axios.get<IGetBooking[]>(
+    const { data: bookings } = await axios.get<IGetBooking[]>(
       "https://school-restaurant-api.azurewebsites.net/booking/restaurant/624abd70df8a9fb11c3ea8b8"
     );
 
-    setGetBooking(res.data);
-
-    let tempBookings = res.data;
-
-    const newBookings = await Promise.all(
-      tempBookings.map(async (obj) => ({
-        ...obj,
-        name: await fetchCustomer(obj.customerId),
-      }))
+    const customerIds = bookings.map((booking) => booking.customerId);
+    const fetchCustomers = customerIds.map((id) =>
+      axios.get<ICustomer[]>(
+        `https://school-restaurant-api.azurewebsites.net/customer/${id}`
+      )
     );
 
-    console.log(newBookings);
+    const customerRes = await Promise.all(fetchCustomers);
+    console.log(customerRes);
+    const customers = customerRes.map(({ data }) => data[0]);
+    const bookingsWithCustomers: IBookingWithCustomers[] = bookings.map(
+      (booking) => {
+        const customerId = booking.customerId;
+        console.log(customerId);
+
+        const customer = customers.find((c) => c._id === customerId);
+        console.log(customers);
+
+        return {
+          ...booking,
+          customer,
+        };
+      }
+    );
+
+    setGetBooking(bookingsWithCustomers);
   };
 
   const deleteBooking = async (bookingId: string) => {
@@ -34,22 +49,18 @@ const Admin = () => {
     fetchBooking();
   };
 
-  const fetchCustomer = async (customerId: string) => {
-    let res = await axios.get<ICustomer[]>(
-      `https://school-restaurant-api.azurewebsites.net/customer/${customerId}`
-    );
-
-    return res.data[0].name;
-  };
-
   useEffect(() => {
     fetchBooking();
   }, []);
 
-  let bookings = getBooking.map((booking: IGetBooking) => {
+  let bookings = getBooking.map((booking: IBookingWithCustomers) => {
     return (
       <div className="bookingCard" key={booking._id}>
         <div className="bookingCardInfo" key={booking.customerId}>
+          <p>
+            <strong>Name: </strong>
+            {booking.customer?.name}
+          </p>
           <p>
             <strong>Date: </strong>
             {booking.date}

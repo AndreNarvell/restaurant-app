@@ -57,12 +57,7 @@ const Booking = () => {
   const [bookings, setBookings] = useState<IGetBooking[]>([]);
 
   // Functions
-
-  let bookingPage: any = document.querySelector(".bookingContainer");
-  let scrollToBottom: any = document.querySelector("#scroll-to-bottom");
-  let pageBottom: any = document.querySelector("#anchorDiv");
-
-  const handleAmount = (e: any, amount: any) => {
+  const handleAmount = (amount: number) => {
     if (amount > 0) {
       setAmount(amount);
       setShowDate(true);
@@ -70,7 +65,7 @@ const Booking = () => {
     }
   };
 
-  const checkAvailability = (tempDate: any) => {
+  const checkAvailability = (tempDate: Date) => {
     const tDate = format(tempDate, "yyyy-MM-dd");
     const earlyBookings = bookings.filter(function (el) {
       return el.date === tDate && el.time === "18:00";
@@ -93,7 +88,7 @@ const Booking = () => {
     }
   };
 
-  const handleDate = (date: any) => {
+  const handleDate = (date: Date) => {
     const tempDate = date;
     setDate(date);
     setNewBooking({ ...newBooking, date: format(date, "yyyy-MM-dd") });
@@ -101,7 +96,7 @@ const Booking = () => {
     checkAvailability(tempDate);
   };
 
-  const handleTime = (e: any) => {
+  const handleTime = (e: React.MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.value;
     setTime(value);
     setNewBooking({ ...newBooking, time: value });
@@ -157,7 +152,7 @@ const Booking = () => {
             <Slider
               min={0}
               max={6}
-              onChange={handleAmount}
+              onChange={(e, number) => handleAmount(number as number)}
               value={amount}
               id="scroll-to-bottom"
             />
