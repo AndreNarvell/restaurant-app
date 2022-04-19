@@ -6,18 +6,7 @@ import { IGetBooking } from "../../models/IGetBooking";
 
 const Admin = () => {
   const [getBooking, setGetBooking] = useState<IGetBooking[]>([]);
-  const [getCustomer, setGetCustomer] = useState<ICustomer[]>([]);
-  const [test, setTest] = useState([]);
 
-  // const [customerName, setCustomerName] = useState("");
-  // const [newCustomer, setNewCustomer] = useState<ICustomer>({
-  //   name: "",
-  //   lastname: "",
-  //   email: "",
-  //   phone: "",
-  // });
-
-  //Lägg till i en service komponent? hjälp
   const fetchBooking = async () => {
     const res = await axios.get<IGetBooking[]>(
       "https://school-restaurant-api.azurewebsites.net/booking/restaurant/624abd70df8a9fb11c3ea8b8"
@@ -27,13 +16,6 @@ const Admin = () => {
 
     let tempBookings = res.data;
 
-    // Psuedo kod
-    // 1. skapa en ny temporär array
-    // 2. for-loop obj in tempBookings => gör fetchCustomer hämta namn, telefonnummer etc i temporära variabler
-    //      3. destructrure obj och lägg till de nya värdena typ ...obj, name: tempname, phone: tempphone
-    //      4. appenda nya obj på din temporära array
-    // 5. utanför for-loop sätt din nya array med alla tillagda värden till din hook av bookings
-
     const newBookings = await Promise.all(
       tempBookings.map(async (obj) => ({
         ...obj,
@@ -42,7 +24,6 @@ const Admin = () => {
     );
 
     console.log(newBookings);
-    //setGetBooking(newBookings)
   };
 
   const deleteBooking = async (bookingId: string) => {
@@ -57,33 +38,15 @@ const Admin = () => {
     let res = await axios.get<ICustomer[]>(
       `https://school-restaurant-api.azurewebsites.net/customer/${customerId}`
     );
-    //return res.data[0]
+
     return res.data[0].name;
-
-    // setGetCustomer(res.data)
-    // console.log('Fetched customer id:', res.data[0].name, res.data[0].phone);
-    // setCustomerName(res.data[0].name);
-
-    // customerName = getCustomer[0].name;
   };
 
   useEffect(() => {
     fetchBooking();
   }, []);
 
-  // console.log(customerName);
-
-  // let customerList: ICustomer[] = [];
-
   let bookings = getBooking.map((booking: IGetBooking) => {
-    // customerList.push(booking._id);
-    // customerList.push(
-    //   { ...newCustomer, name: booking._id },
-    //   { ...newCustomer, lastname: booking._id },
-    //   { ...newCustomer, email: booking._id },
-    //   { ...newCustomer, phone: booking._id }
-    // );
-
     return (
       <div className="bookingCard" key={booking._id}>
         <div className="bookingCardInfo" key={booking.customerId}>
@@ -111,13 +74,11 @@ const Admin = () => {
           >
             <p>Delete</p>
           </button>
-          {/* <button onClick={() => { fetchCustomer(booking.customerId) }}>Customer</button> */}
         </div>
       </div>
     );
   });
 
-  // console.log(customerList);
   return <div className="cardContainer">{bookings}</div>;
 };
 

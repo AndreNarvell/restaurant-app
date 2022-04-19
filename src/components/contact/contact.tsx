@@ -4,7 +4,6 @@ import "./contact.scss";
 const Contact = () => {
   return (
     <div className="contactContainer">
-      {/* <div className="addressMapContainer"> */}
       <div className="address">
         <ul>
           <li>Strålgatan 5</li>
@@ -25,7 +24,6 @@ const Contact = () => {
           loading="lazy"
         ></iframe>
       </div>
-      {/* </div> */}
 
       <div className="footer-container">
         <footer>
