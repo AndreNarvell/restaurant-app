@@ -12,7 +12,7 @@ const Contact = () => {
           <li>070-71337666</li>
           <li>
             <NavLink className="navLink" to="/">
-              www.goldpancake.com
+              www.goldenpancakes.com
             </NavLink>
           </li>
         </ul>
@@ -32,17 +32,17 @@ const Contact = () => {
           <ul>
             <li>
               <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                Facebook
+                📘
               </a>
             </li>
             <li>
               <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                Twitter
+                🦤
               </a>
             </li>
             <li>
               <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                Insta
+                📷
               </a>
             </li>
           </ul>

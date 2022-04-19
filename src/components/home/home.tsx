@@ -1,6 +1,7 @@
 import "./home.scss";
 import pancakes from "../../images/pancakes.png";
 import { Link } from "react-router-dom";
+import Spacer from "../../styles/Spacer";
 
 const Home = () => {
   return (
@@ -29,6 +30,7 @@ const Home = () => {
             </button>
           </Link>
         </div>
+      <Spacer height={50} />
       </div>
     </div>
   );

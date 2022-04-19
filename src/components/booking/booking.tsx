@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import axios from "axios";
 import { ICustomer } from "../../models/ICustomer";
 import { IGetBooking } from "../../models/IGetBooking";
+import Spacer from "../../styles/Spacer";
 
 const Booking = () => {
   const fetchBooking = async () => {
@@ -159,6 +160,8 @@ const Booking = () => {
         </div>
       </div>
 
+      <Spacer height={50}/>
+
       {/* Calendar */}
       {showDate && (
         <div className="calendarDiv animate__animated animate__bounceInLeft">
@@ -172,6 +175,8 @@ const Booking = () => {
           />
         </div>
       )}
+
+<Spacer height={50}/>
 
       {/* Choose Time */}
       {showTime && (
@@ -205,6 +210,8 @@ const Booking = () => {
           </div>
         </div>
       )}
+
+<Spacer height={50}/>
 
       {/* Form */}
       {showForm && (

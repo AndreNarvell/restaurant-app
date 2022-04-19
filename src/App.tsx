@@ -8,6 +8,22 @@ import Contact from "./components/contact/contact";
 import Admin from "./components/admin/admin";
 import NotFound from "./components/notfound/NotFound";
 import logo from "./images/logo.png";
+import styled from "styled-components";
+
+
+const TabButton = styled(NavLink)`
+      color: #472b00;
+      padding: 0 1rem 0 1rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+
+  &.active {
+    text-decoration: underline;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 function App() {
   const fetchRestaurant = async () => {
@@ -30,15 +46,15 @@ function App() {
           </div>
           <ul>
             <li>
-              <NavLink className="navLink" to={"/booking"}>
+              <TabButton className="navLink" to={"/booking"}>
                 Book a table
-              </NavLink>
+              </TabButton>
             </li>
 
             <li>
-              <NavLink className="navLink" to={"/contact"}>
+              <TabButton className="navLink" to={"/contact"}>
                 Contact
-              </NavLink>
+              </TabButton>
             </li>
           </ul>
         </nav>
