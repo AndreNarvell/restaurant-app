@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Spacer from "../../styles/Spacer";
 
 const Home = () => {
+  //HTML return
   return (
     <div className="homeContainer">
       <div className="homeImg">
@@ -30,7 +31,7 @@ const Home = () => {
             </button>
           </Link>
         </div>
-      <Spacer height={50} />
+        <Spacer height={50} />
       </div>
     </div>
   );

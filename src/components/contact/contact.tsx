@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import "./contact.scss";
 
 const Contact = () => {
+  //HTML return
   return (
     <div className="contactContainer">
       <div className="address">

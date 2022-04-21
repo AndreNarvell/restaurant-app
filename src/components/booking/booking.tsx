@@ -16,11 +16,12 @@ import lovelyPancake from "../../images/lovelyPancake.png";
 import Spacer from "../../styles/Spacer";
 
 const Booking = () => {
+  //Fetch booking from API
   const fetchBooking = async () => {
-    const response = await axios.get<IGetBooking[]>(
+    const { data: fetchedBookings } = await axios.get<IGetBooking[]>(
       "https://school-restaurant-api.azurewebsites.net/booking/restaurant/624abd70df8a9fb11c3ea8b8"
     );
-    setBookings(response.data);
+    setBookings(fetchedBookings);
   };
 
   // Seting state for each new section
@@ -38,7 +39,7 @@ const Booking = () => {
   const [showEarly, setShowEarly] = useState(true);
   const [showLate, setShowLate] = useState(true);
 
-  // Seting state for input (ICustomer)
+  // State for input (ICustomer)
   const [newCustomer, setNewCustomer] = useState<ICustomer>({
     name: "",
     lastname: "",
@@ -46,6 +47,7 @@ const Booking = () => {
     phone: "",
   });
 
+  //State for booking
   const [newBooking, setNewBooking] = useState<IBooking>({
     restaurantId: "624abd70df8a9fb11c3ea8b8",
     date: "",
@@ -65,6 +67,7 @@ const Booking = () => {
     }
   };
 
+  //Checking availability to API
   const checkAvailability = (tempDate: Date) => {
     const tDate = format(tempDate, "yyyy-MM-dd");
     const earlyBookings = bookings.filter(function (el) {
@@ -88,6 +91,7 @@ const Booking = () => {
     }
   };
 
+  //Conditional rendering and setting state
   const handleDate = (date: Date) => {
     const tempDate = date;
     setDate(date);
@@ -96,6 +100,7 @@ const Booking = () => {
     checkAvailability(tempDate);
   };
 
+  //Conditional rendering and setting state
   const handleTime = (e: React.MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.value;
     setTime(value);
@@ -103,12 +108,13 @@ const Booking = () => {
     setShowForm(true);
   };
 
+  //Conditional rendering and setting state
   const handleRegister = (e: ChangeEvent<HTMLInputElement>) => {
     let name = e.target.name;
     setNewCustomer({ ...newCustomer, [name]: e.target.value });
-    console.log(e.target.value);
   };
 
+  //Fetch booking each time you either update the page or load
   useEffect(() => {
     fetchBooking();
   }, []);
@@ -118,28 +124,31 @@ const Booking = () => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [showDate, showTime, showForm, showReservation]);
 
+  //Each time newBooking or newCustomer changes, set newBooking
   useEffect(() => {
     setNewBooking({ ...newBooking, customer: newCustomer });
   }, [newBooking, newCustomer]);
 
+  //Post booking to API
   const postBooking = async () => {
-    const response = await axios.post<IBooking>(
+    await axios.post<IBooking>(
       "https://school-restaurant-api.azurewebsites.net/booking/create",
       newBooking
     );
-    console.log(response);
   };
 
+  //Conditional rendering and setting state
   const handleReservation = () => {
     setShowReservation(true);
-    console.log(newBooking);
     postBooking();
   };
 
+  //Setting state
   const handleCheckbox = () => {
     setAgree(!agree);
   };
 
+  //HTML return
   return (
     <>
       <div className="bookingContainer">
@@ -281,7 +290,6 @@ const Booking = () => {
             </div>
           </div>
         )}
-        {/* <p id="anchorDiv">hej</p> */}
       </div>
     </>
   );

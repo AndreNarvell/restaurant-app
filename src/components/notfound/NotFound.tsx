@@ -4,6 +4,7 @@ import "./NotFound.scss";
 import sadPancake from "../../images/sad_pancake.jpg";
 
 const NotFound = () => {
+  //HTML return
   return (
     <div className="notFoundDiv">
       <div>

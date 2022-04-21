@@ -1,7 +1,7 @@
-import React from "react";
 import "./App.scss";
-import axios from "axios";
+
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+
 import Home from "./components/home/home";
 import Booking from "./components/booking/booking";
 import Contact from "./components/contact/contact";
@@ -10,12 +10,12 @@ import NotFound from "./components/notfound/NotFound";
 import logo from "./images/logo.png";
 import styled from "styled-components";
 
-
+//Styled component
 const TabButton = styled(NavLink)`
-      color: #472b00;
-      padding: 0 1rem 0 1rem;
-      font-size: 1.5rem;
-      text-decoration: none;
+  color: #472b00;
+  padding: 0 1rem 0 1rem;
+  font-size: 1.5rem;
+  text-decoration: none;
 
   &.active {
     text-decoration: underline;
@@ -26,13 +26,7 @@ const TabButton = styled(NavLink)`
 `;
 
 function App() {
-  const fetchRestaurant = async () => {
-    const response = await axios.get(
-      "https://school-restaurant-api.azurewebsites.net/restaurant/624abd70df8a9fb11c3ea8b8"
-    );
-    console.log(response.data);
-  };
-
+  //HTML return
   return (
     <BrowserRouter>
       <div className="App">
