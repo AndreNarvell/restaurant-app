@@ -239,6 +239,9 @@
           }
 
           &:disabled {
+            p{
+              filter: opacity(50%);
+            }
             &:hover {
               transform: none;
               cursor: default;
